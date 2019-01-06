@@ -32,7 +32,7 @@ public class ShiftGearDown extends Command {
   @Override
   protected boolean isFinished() {
     // Return true when in new gear
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true

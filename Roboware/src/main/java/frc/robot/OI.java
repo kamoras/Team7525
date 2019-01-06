@@ -19,6 +19,9 @@ public class OI {
   // number it is.
   // Joystick stick = new Joystick(port);
   // Button button = new JoystickButton(stick, buttonNumber);
+  Joystick stick = new Joystick(1);
+  Button button1 = new JoystickButton(stick, 1),
+         button2 = new JoystickButton(stick, 2);
 
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
@@ -31,6 +34,7 @@ public class OI {
   // Start the command when the button is pressed and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenPressed(new ExampleCommand());
+  button1.whenPressed(new Shoot());
 
   // Run the command while the button is being held down and interrupt it once
   // the button is released.
