@@ -7,6 +7,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.ShiftDown;
+import frc.robot.commands.ShiftUp;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -39,4 +45,26 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
+
+  // Controllers
+  Joystick driverStick = new Joystick(RobotMap.driverStickPort); // Drive joystick
+  Joystick operatorStick = new Joystick(RobotMap.operatorStickPort); // Operator controller
+  
+  // Buttons
+  Button shift = new JoystickButton(driverStick, 1); // Change the "1" to desired button
+
+  public Joystick getDriverStick() {
+    return driverStick;
+  }
+
+  public Joystick getOperatorStick() {
+    return operatorStick;
+  }
+
+  public void initButtons() {
+    // When you push the shift button the robot will go into high gear. 
+    // It will go back down to low gear when the button is released.
+    shift.whenPressed(new ShiftUp());
+    shift.whenReleased(new ShiftDown());
+  }
 }

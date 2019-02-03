@@ -7,13 +7,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.MoveRobot;
+import frc.robot.commands.ShiftDown;
+import frc.robot.commands.ShiftUp;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.PneumaticShifter;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,8 +27,9 @@ import frc.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
+  public static DriveTrain m_drive;
+  public static PneumaticShifter m_shift;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -36,7 +41,20 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
-    m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
+
+    // Init Buttons
+    m_oi.initButtons();
+
+    // Init subsystems
+    // DriveTrain
+    m_drive = new DriveTrain();
+    if (!m_drive.initMotors()) {
+      System.out.println("robotInit: Failed to initialize DriveTrain motors.");
+    }
+    // PneumaticShifter
+    m_shift = new PneumaticShifter();
+    m_shift.initSolenoid();
+
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
   }
