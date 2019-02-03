@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -28,6 +29,7 @@ public class Robot extends TimedRobot {
   public static DriveTrain m_drive;
   public static PneumaticShifter m_shift;
   public static Compressor m_compressor;
+  public static AnalogInput m_pressureSensor;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -56,6 +58,8 @@ public class Robot extends TimedRobot {
     m_compressor = new Compressor(RobotMap.compressorPort); 
     // Compress automatically
     m_compressor.setClosedLoopControl(true);
+    //Pressure sensor
+    m_pressureSensor = new AnalogInput(0);
 
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -71,6 +75,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    // Add current pressure to Smart Dashboard
+    // NOTE: it may be necessary to change the constants in this pressure calculation
+    SmartDashboard.putNumber("Current pressure", (250 * (m_pressureSensor.getVoltage() / 5)) - 25);
   }
 
   /**
