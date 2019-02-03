@@ -7,15 +7,11 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.MoveRobot;
-import frc.robot.commands.ShiftDown;
-import frc.robot.commands.ShiftUp;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.PneumaticShifter;
 
