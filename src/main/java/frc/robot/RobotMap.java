@@ -36,7 +36,21 @@ public class RobotMap {
   public static int leftSlavePort = 2;
   public static int rightSlavePort = 3;
 
+  // Lift motors
+  public static int liftMaster = 4;
+  public static int liftSlave1 = 5;
+  public static int liftSlave2 = 6;
+
+  // Intake motors
+  public static int intakeMotor1 = 7;
+  public static int intakeMotor2 = 8;
+
+  // Arm motors
+  public static int armMotor = 9;
+
   // PCM Ports
   public static int compressorPort = 0; // PCM port for the compressor - should always be zero, why would we have more than one?
   public static int gearShiftPort = 0; // PCM port to shift gears (single solenoid)
+
+
 }

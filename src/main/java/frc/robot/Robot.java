@@ -14,7 +14,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.PneumaticShifter;
 
 /**
@@ -29,7 +32,9 @@ public class Robot extends TimedRobot {
   public static DriveTrain m_drive;
   public static PneumaticShifter m_shift;
   public static Compressor m_compressor;
-  public static AnalogInput m_pressureSensor;
+  public static Lift m_lift;
+  public static Intake m_intake;
+  public static Arm m_arm;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -49,7 +54,7 @@ public class Robot extends TimedRobot {
     // DriveTrain
     m_drive = new DriveTrain();
     if (!m_drive.initMotors()) {
-      System.out.println("robotInit: Failed to initialize DriveTrain motors.");
+      System.out.println(Errors.DRIVETRAIN_INIT);
     }
     // PneumaticShifter
     m_shift = new PneumaticShifter();
@@ -58,8 +63,18 @@ public class Robot extends TimedRobot {
     m_compressor = new Compressor(RobotMap.compressorPort); 
     // Compress automatically
     m_compressor.setClosedLoopControl(true);
-    //Pressure sensor
-    m_pressureSensor = new AnalogInput(0);
+    // Lift
+    if (!m_lift.initMotors()) {
+      System.out.println(Errors.LIFT_INIT);
+    }
+    // Intake
+    if (!m_intake.initMotors()) {
+      System.out.println(Errors.INTAKE_INIT);
+    }
+    // Arm
+    if (!m_arm.initMotors()) {
+      System.out.println(Errors.ARM_INIT);
+    }
 
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -75,9 +90,21 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Add current pressure to Smart Dashboard
-    // NOTE: it may be necessary to change the constants in this pressure calculation
-    SmartDashboard.putNumber("Current pressure", (250 * (m_pressureSensor.getVoltage() / 5)) - 25);
+    // Add current lift position to Smart Dashboard
+    SmartDashboard.putNumber("Lift encoder", m_lift.getPosition());
+    SmartDashboard.putNumber("Arm encoder", m_arm.getPosition());
+    SmartDashboard.putNumber("Lift P", Constants.lP);
+    SmartDashboard.putNumber("Lift I", Constants.lI);
+    SmartDashboard.putNumber("Lift D", Constants.lD);
+    SmartDashboard.putNumber("Lift F", Constants.lF);
+    SmartDashboard.putNumber("DriveTrain P", Constants.kP);
+    SmartDashboard.putNumber("DriveTrain I", Constants.kI);
+    SmartDashboard.putNumber("DriveTrain D", Constants.kD);
+    SmartDashboard.putNumber("DriveTrain F", Constants.kF);
+    SmartDashboard.putNumber("Arm P", Constants.aP);
+    SmartDashboard.putNumber("Arm I", Constants.aI);
+    SmartDashboard.putNumber("Arm D", Constants.aD);
+    SmartDashboard.putNumber("Arm F", Constants.aF);
   }
 
   /**
