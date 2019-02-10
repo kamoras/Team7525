@@ -48,6 +48,10 @@ public class RobotMap {
   // Arm motors
   public static int armMotor = 9;
 
+  // Climber
+  public static int climberMaster = 10;
+  public static int climberSlave = 11;
+
   // PCM Ports
   public static int compressorPort = 0; // PCM port for the compressor - should always be zero, why would we have more than one?
   public static int gearShiftPort = 0; // PCM port to shift gears (single solenoid)

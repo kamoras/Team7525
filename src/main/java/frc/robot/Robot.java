@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lift;
@@ -35,6 +36,7 @@ public class Robot extends TimedRobot {
   public static Lift m_lift;
   public static Intake m_intake;
   public static Arm m_arm;
+  public static Climber m_climber;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -74,6 +76,10 @@ public class Robot extends TimedRobot {
     // Arm
     if (!m_arm.initMotors()) {
       System.out.println(Errors.ARM_INIT);
+    }
+    // Climber
+    if (!m_climber.initMotors()) {
+      System.out.println(Errors.CLIMBER_INIT);
     }
 
     // chooser.addOption("My Auto", new MyAutoCommand());

@@ -90,4 +90,9 @@ public class Constants {
     public static final int armBallOut = 0;
     public static final int armBallIn = 0;
     public static final int armHatchIn = 0;
+
+    public enum climberDirection
+    {
+        IN, OUT
+    }
 }

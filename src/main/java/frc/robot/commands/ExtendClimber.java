@@ -9,27 +9,27 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.Constants.intakeMode;
+import frc.robot.Constants.climberDirection;
 
-public class OperateIntake extends Command {
-  intakeMode mode;
+public class ExtendClimber extends Command {
+  climberDirection direction;
 
-  public OperateIntake() {
+  public ExtendClimber() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    this(intakeMode.BALL_IN);
+    this(climberDirection.IN);
   }
 
-  public OperateIntake(intakeMode mode) {
-    this.mode = mode;
-    requires(Robot.m_intake);
+  public ExtendClimber(climberDirection direction) {
+    this.direction = direction;
+    requires(Robot.m_climber);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.m_intake.initializeCounter();
-    Robot.m_intake.operateIntake(mode);
+    Robot.m_climber.initializeCounters();
+    Robot.m_climber.climb(direction);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -40,13 +40,13 @@ public class OperateIntake extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.m_intake.isDone(mode);
+    return Robot.m_climber.hitDestination(direction);
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_intake.stop();
+    Robot.m_climber.stop();
   }
 
   // Called when another command which requires one or more of the same

@@ -15,4 +15,6 @@ public class Errors {
     public static String LIFT_INIT = "robotInit: Failed to initialize Lift motors.";
     public static String INTAKE_INIT = "robotInit: Failed to initialize Intake motors.";
     public static String ARM_INIT = "robotInit: Failed to initialize Arm motors.";
+    public static String CLIMBER_INIT = "robotInit: Failed to initialize Climber motors.";
+
 }

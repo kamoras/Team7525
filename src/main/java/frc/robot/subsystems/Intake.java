@@ -123,4 +123,9 @@ public class Intake extends Subsystem {
   public void hatchOut() {
     bottomMotor.set(ControlMode.PercentOutput, -1.0);
   }
+
+  public void initializeCounter() {
+    hatchSensorCounter1.reset();
+    hatchSensorCounter2.reset();
+  }
 }
