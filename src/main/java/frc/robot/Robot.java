@@ -47,10 +47,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_oi = new OI();
-
-    // Init Buttons
-    m_oi.initButtons();
 
     // Init subsystems
     // DriveTrain
@@ -81,6 +77,11 @@ public class Robot extends TimedRobot {
     if (!m_climber.initMotors()) {
       System.out.println(Errors.CLIMBER_INIT);
     }
+    
+    m_oi = new OI();
+
+    // Init Buttons
+    m_oi.initButtons();
 
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
