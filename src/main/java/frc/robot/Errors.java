@@ -12,9 +12,12 @@ package frc.robot;
  */
 public class Errors {
     public static String DRIVETRAIN_INIT = "robotInit: Failed to initialize DriveTrain motors.";
+    public static String SHIFTER_INIT = "robotInit: Failed to initialize PneumaticShifter solenoid.";
+    public static String COMPRESSOR_INIT = "robotInit: Failed to initialize Compressor.";
     public static String LIFT_INIT = "robotInit: Failed to initialize Lift motors.";
     public static String INTAKE_INIT = "robotInit: Failed to initialize Intake motors.";
     public static String ARM_INIT = "robotInit: Failed to initialize Arm motors.";
     public static String CLIMBER_INIT = "robotInit: Failed to initialize Climber motors.";
-
+    public static String CONTROLLER_INIT = "robotInit: Failed to initialize Controller.";
+    public static String SMARTDASH_INIT = "robotInit: Failed to initialize SmartDashboard.";
 }

@@ -9,12 +9,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Constants.climberDirection;
+import frc.robot.Constants.liftPosition;
 
-public class Climb extends CommandGroup {
+public class ClimbLow extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public Climb() {
+  public ClimbLow() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -31,8 +32,8 @@ public class Climb extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-
+    addSequential(new MoveLift(liftPosition.MEDIUM_GROUND));
     addSequential(new ExtendClimber(climberDirection.OUT));
-    
+
   }
 }

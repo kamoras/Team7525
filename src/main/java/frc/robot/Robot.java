@@ -50,38 +50,64 @@ public class Robot extends TimedRobot {
 
     // Init subsystems
     // DriveTrain
-    m_drive = new DriveTrain();
-    if (!m_drive.initMotors()) {
+    try {
+      m_drive = new DriveTrain();
+      m_drive.initMotors();
+    } catch (Exception e) {
       System.out.println(Errors.DRIVETRAIN_INIT);
     }
     // PneumaticShifter
-    m_shift = new PneumaticShifter();
-    m_shift.initSolenoid();
+    try {
+      m_shift = new PneumaticShifter();
+      m_shift.initSolenoid();
+    } catch (Exception e) {
+      System.out.println(Errors.SHIFTER_INIT);
+    }
     // Compressor
-    m_compressor = new Compressor(RobotMap.compressorPort); 
-    // Compress automatically
-    m_compressor.setClosedLoopControl(true);
+    try {
+      m_compressor = new Compressor(RobotMap.compressorPort); 
+      // Compress automatically
+      m_compressor.setClosedLoopControl(true);
+    } catch (Exception e) {
+      System.out.println(Errors.COMPRESSOR_INIT);
+    }
     // Lift
-    if (!m_lift.initMotors()) {
+    try {
+      m_lift = new Lift();
+      m_lift.initMotors();
+    } catch (Exception e) {
       System.out.println(Errors.LIFT_INIT);
     }
     // Intake
-    if (!m_intake.initMotors()) {
+    try {
+      m_intake = new Intake();
+      m_intake.initMotors();
+    } catch (Exception e) {
       System.out.println(Errors.INTAKE_INIT);
     }
     // Arm
-    if (!m_arm.initMotors()) {
+    try {
+      m_arm = new Arm();
+      m_arm.initMotors();
+    } catch (Exception e) {
       System.out.println(Errors.ARM_INIT);
     }
     // Climber
-    if (!m_climber.initMotors()) {
+    try {
+      m_climber = new Climber();
+      m_climber.initMotors();
+    } catch (Exception e) {
       System.out.println(Errors.CLIMBER_INIT);
     }
     
     m_oi = new OI();
 
     // Init Buttons
-    m_oi.initButtons();
+    try {
+      m_oi.initButtons();
+    } catch (Exception e) {
+      System.out.println(Errors.CONTROLLER_INIT);
+    }
 
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -98,20 +124,24 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     // Add current lift position to Smart Dashboard
-    SmartDashboard.putNumber("Lift encoder", m_lift.getPosition());
-    SmartDashboard.putNumber("Arm encoder", m_arm.getPosition());
-    SmartDashboard.putNumber("Lift P", Constants.lP);
-    SmartDashboard.putNumber("Lift I", Constants.lI);
-    SmartDashboard.putNumber("Lift D", Constants.lD);
-    SmartDashboard.putNumber("Lift F", Constants.lF);
-    SmartDashboard.putNumber("DriveTrain P", Constants.kP);
-    SmartDashboard.putNumber("DriveTrain I", Constants.kI);
-    SmartDashboard.putNumber("DriveTrain D", Constants.kD);
-    SmartDashboard.putNumber("DriveTrain F", Constants.kF);
-    SmartDashboard.putNumber("Arm P", Constants.aP);
-    SmartDashboard.putNumber("Arm I", Constants.aI);
-    SmartDashboard.putNumber("Arm D", Constants.aD);
-    SmartDashboard.putNumber("Arm F", Constants.aF);
+    try {
+      SmartDashboard.putNumber("Lift encoder", m_lift.getPosition());
+      SmartDashboard.putNumber("Arm encoder", m_arm.getPosition());
+      SmartDashboard.putNumber("Lift P", Constants.lP);
+      SmartDashboard.putNumber("Lift I", Constants.lI);
+      SmartDashboard.putNumber("Lift D", Constants.lD);
+      SmartDashboard.putNumber("Lift F", Constants.lF);
+      SmartDashboard.putNumber("DriveTrain P", Constants.kP);
+      SmartDashboard.putNumber("DriveTrain I", Constants.kI);
+      SmartDashboard.putNumber("DriveTrain D", Constants.kD);
+      SmartDashboard.putNumber("DriveTrain F", Constants.kF);
+      SmartDashboard.putNumber("Arm P", Constants.aP);
+      SmartDashboard.putNumber("Arm I", Constants.aI);
+      SmartDashboard.putNumber("Arm D", Constants.aD);
+      SmartDashboard.putNumber("Arm F", Constants.aF);
+    } catch (Exception e) {
+      System.out.println(Errors.SMARTDASH_INIT);
+    }
   }
 
   /**
