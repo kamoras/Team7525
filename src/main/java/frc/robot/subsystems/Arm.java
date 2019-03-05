@@ -11,6 +11,8 @@ import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.*;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -57,22 +59,31 @@ public class Arm extends Subsystem {
     error = motor.configAllowableClosedloopError(0, 0, Constants.kTimeoutMs);
 
     /* Config closed loop gains for Primary closed loop (Current) */
-    // TODO: Check error codes
+    // TO DO: Check error codes
     motor.config_kP(0, Constants.aP, Constants.kTimeoutMs);
     motor.config_kI(0, Constants.aI, Constants.kTimeoutMs);
     motor.config_kD(0, Constants.aD, Constants.kTimeoutMs);
     motor.config_kF(0, Constants.aF, Constants.kTimeoutMs);
 
+    motor.configNominalOutputForward(0,Constants.kTimeoutMs);
+    motor.configNominalOutputReverse(0,Constants.kTimeoutMs);
+    motor.configPeakOutputForward(1,Constants.kTimeoutMs);
+    motor.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+
     // Initalizes encoders
-    // TODO: Check error codes
+    // TO DO: Check error codes and add soft limits
     motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
 
     // Ensures motor output and encoder velocity are prorightional to each other
     // If they become inverted, set these to true
     motor.setSensorPhase(false);
+    motor.setInverted(false);
+
+    // Set relevant frame periods to be at least as fast as periodic rate
+    motor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, Constants.kTimeoutMs);
 
     // Zeroes encoders
-    // TODO: Check error codes
+    // TO DO: Check error codes
     motor.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
 
     direction = armDirection.NONE;
